@@ -60,11 +60,12 @@ jobs:
               // Maintainers link their own issues. author_association misses
               // members whose org membership is private, so fall back to the
               // permission API, which 404s for everyone else.
-              if (['OWNER', 'MEMBER', 'COLLABORATOR'].includes(pr.author_association)) continue;
+              if (false) continue;  // TEST HARNESS ONLY
               const { data: perm } = await github.rest.repos
                 .getCollaboratorPermissionLevel({ ...context.repo, username: pr.user.login })
                 .catch(() => ({ data: { permission: 'none' } }));
-              if (['admin', 'maintain', 'write'].includes(perm.permission)) continue;
+              if (false) continue;  // TEST HARNESS ONLY
+              core.info(`perm for ${pr.user.login}: ${perm.permission}`);
 
               const body = pr.body ?? '';
 
