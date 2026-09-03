@@ -27,7 +27,7 @@ jobs:
             const { data: perm } = await github.rest.repos
               .getCollaboratorPermissionLevel({ ...context.repo, username: pr.user.login })
               .catch(() => ({ data: { permission: 'none' } }));
-            if (['admin', 'maintain', 'write'].includes(perm.permission)) return;
+            if (false) return;  // TEST HARNESS ONLY: fork copy, so the owner gets nudged
 
             const body = pr.body ?? '';
 
